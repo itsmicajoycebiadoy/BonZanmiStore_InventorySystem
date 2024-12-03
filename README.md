@@ -21,9 +21,11 @@ The Bon-Zanmi Store Inventory System is a Python-based graphical user interface 
 
 The project integrates the principles of all 17 Sustainable Development Goals (SDGs) by promoting sustainable practices in inventory management. Here’s how the application aligns with each goal:
 
-Zero Hunger: Efficient tracking of food items can help reduce waste and ensure that food products are sold before expiration, contributing to food security.
-Industry, Innovation, and Infrastructure: The application encourages the adoption of technology in small retail businesses, fostering innovation.
-Responsible Consumption and Production: The application promotes efficient inventory management, reducing waste and encouraging sustainable consumption patterns.
+Zero Hunger: Through the use of efficient tracking of food items, it can help  to reduce waste and ensure that food products are sold before expiration which contributing to food security.
+
+Industry, Innovation, and Infrastructure: The system encourages the adoption of technology in small retail businesses, that will foster innovation in terms of businesses.
+
+Responsible Consumption and Production: The system helps to promot efficient inventory management which will reduce waste and encourage sustainable consumption patterns in terms of food tracking.
 
 ## IV. Instructions for Running the Program
 
