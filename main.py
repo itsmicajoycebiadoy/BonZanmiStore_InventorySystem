@@ -1,38 +1,34 @@
-# Import necessary libraries
+# Import sll libraries
 
-from tkinter import *  # Import all classes and functions from the tkinter module for creating GUI applications
+from tkinter import *  # Import the classes and functions from the tkinter module in order to create a GUI applications
 
 from tkinter import ttk  # Import the themed tkinter module for advanced widgets like Treeview, Combobox, etc.
 
-from tkinter import messagebox  # Import messagebox for displaying dialog boxes (like warnings and info)
+from tkinter import messagebox  # Import messagebox for displaying dialog boxes.
 
-import tkinter  # Import the tkinter module (not necessary since we imported everything above, but can be useful for additional functionalities)
+import tkinter  # Import the tkinter module.
 
-import random  # Import the random module for generating random numbers (used in generating random item IDs)
+import random  # Import the random module in order to generate random numbers. 
 
-import pymysql  # Import pymysql to connect and interact with MySQL databases
+import pymysql  # Import pymysql in order to connect and interact with MySQL databases.
 
-import csv  # Import csv module for reading and writing CSV files (not currently used in the provided code)
+from tkinter import StringVar  # Import StringVar class in order to create string variables that can be used with tkinter widgets.
 
-import numpy as np  # Import numpy for numerical operations (not currently used in the provided code)
+from tkcalendar import DateEntry  # Import DateEntry from tkcalendar for a calendar widget. 
 
-from tkinter import StringVar  # Import StringVar class to create string variables that can be used with tkinter widgets
-
-from tkcalendar import DateEntry  # Import DateEntry from tkcalendar for a calendar widget (not currently used in the provided code)
-
-# Create the main application window
+# Creating the main application window
 
 window = tkinter.Tk()
 
 window.title("Bon-Zanmi Store Inventory System")
 
-# Function to toggle fullscreen mode
+# Function for fullscreen mode
 
 def toggle_fullscreen(event=None):
 
     window.attributes('-fullscreen', True)
 
-# Function to exit fullscreen mode
+# Function for exit fullscreen mode
 
 def end_fullscreen(event=None):
 
@@ -46,19 +42,19 @@ window.configure(bg="#DDA0DD")
 
 window.state('zoomed')
 
-# Initialize frames
+# This function use to initialize frames
 
 welcome_frame = Frame(window, bg="pink")
 
 inventory_frame = Frame(window, bg="#DDA0DD")
 
-# Function to show the inventory frame and hide the welcome frame
+# This function use to show the inventory frame and hide the welcome frame
 
 def show_inventory():
 
-    welcome_frame.pack_forget()  # Hide the welcome frame
+    welcome_frame.pack_forget()  # Function that hide the welcome frame
 
-    inventory_frame.pack(fill=BOTH, expand=True)  # Show the inventory frame
+    inventory_frame.pack(fill=BOTH, expand=True)  # Function that show the inventory frame
 
     refreshTable() 
 
@@ -70,7 +66,7 @@ enter_button.pack(side=BOTTOM, padx=0, pady= 10)  # Pack the button at the botto
 
 window.bind('<Return>', lambda event: show_inventory())
 
-# Welcome Page
+# This is the Welcome Page of the appliation
 
 welcome_label = Label(welcome_frame, text="Welcome to Bon-Zanmi Inventory System!", font=("Times new roman", 30), bg="pink")
 
@@ -85,7 +81,7 @@ my_tree = ttk.Treeview(window,show = 'headings',height = 20)
 
 style=ttk.Style()
 
-# Array to hold placeholder text for entry fields
+# This array use to hold placeholder text for entry fields
 placeholderArray = [tkinter.StringVar() for _ in range(7)]
 
 # Define numeric and alphabetic characters for ID generation
@@ -93,7 +89,7 @@ numeric='1234567890'
 
 alpha='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-# Function to handle click event on entry fields
+# Thi function use to handle click event on entry fields
 def on_entry_click(event):
 
     if event.widget.get() == 'YYYY-MM-DD':
@@ -102,7 +98,7 @@ def on_entry_click(event):
 
         event.widget.config(fg='black')  
 
-# Function to handle focus out event on entry fields
+# This function use to handle focus out event on entry fields
 def on_focusout(event):
 
     if event.widget.get() == '':
@@ -111,7 +107,7 @@ def on_focusout(event):
 
         event.widget.config(fg='black') 
 
-# Function to establish a connection to the MySQL database       
+# This function use to establish a connection to the MySQL database       
 def connection():
 
     conn = pymysql.connect(
@@ -126,18 +122,17 @@ def connection():
     )
     return conn
 
-# Establish database connection
+# Th following lines below use to establish database connection
 conn = connection()
 
 cursor = conn.cursor()
 
-
-# Initialize placeholder variables for entry fields
+# The function below use to initialize placeholder variables for entry fields
 for i in range(0,5):
 
     placeholderArray[i] = tkinter.StringVar()
 
-# Function to read data from the database
+# The function use to read data from the database
 def read():
 
     cursor.connection.ping()
@@ -152,7 +147,7 @@ def read():
 
     return results 
 
-# Function to refresh the data displayed in the Treeview
+# This function use to refresh the data displayed in the Treeview
 def refreshTable():
 
     for data in my_tree.get_children():
@@ -161,7 +156,7 @@ def refreshTable():
 
     for array in read():
 
-        item_quantity = int(array[4])  # Assuming quantity is the 5th element in the array
+        item_quantity = int(array[4])  # We can assume that the quantity is the 5th element in the array
 
         if item_quantity <= 0 :
 
@@ -171,13 +166,13 @@ def refreshTable():
 
             my_tree.insert(parent='', index='end', id=array, text="", values=(array), tag="orow")
 
-    my_tree.tag_configure('orow', background='#FFC0CB')  # Normal items
+    my_tree.tag_configure('orow', background='#FFC0CB') 
 
-    my_tree.tag_configure('OutOfStock', background="lavender", foreground = "black")  # Out of stock items
+    my_tree.tag_configure('OutOfStock', background="lavender", foreground = "black")  # This function indicates out of stock items
     
     my_tree.pack()
 
-# Function to set placeholder text in entry fields
+# This function use to set placeholder text in entry fields
 
 def setph(word,num):
 
@@ -187,7 +182,7 @@ def setph(word,num):
 
             placeholder[ph].set(word)
 
-# Function to generate a random item ID
+# This function use to generate a random item ID in the application. 
 
 def generateRand():
 
@@ -207,7 +202,7 @@ def generateRand():
 
     setph(itemId, 0)
 
-# Function to save new item data to the database
+# This function use to save new item data to the database
 def save():
 
     itemId = str(itemIdEntry.get())
@@ -226,14 +221,14 @@ def save():
 
     valid = True
 
-    # Check if all fields are filled
+    # This function use to check if all fields are filled
     if not (itemId and itemId.strip()) or not (name and name.strip()) or not (packaging_size and packaging_size.strip()) or not (price and price.strip()) or not (qnt and qnt.strip()) or not (cat and cat.strip()) or not (expiration_date and expiration_date.strip()):
 
         messagebox.showwarning("", "Please fill up all entries")
 
         return
 
-    # Validate Item Id format
+    # This function use to validate Item Id format
     if len(itemId) < 5 or not (itemId[3] == '-'):
 
         messagebox.showwarning("", "Invalid Item Id")
