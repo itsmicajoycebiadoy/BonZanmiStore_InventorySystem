@@ -741,8 +741,8 @@ def setph(word, num):
             placeholderArray[ph].set(word)  # Update placeholderArray with new value
 
 def exit_application():
-
-    window.destroy()  # This will close the Tkinter window
+    if messagebox.askyesno("Confirm Exit", "Do you really want to exit?"):
+        window.destroy()  # This will close the Tkinter window
 
 # Exit Button
 exit_button = Button(left_frame, text="Exit", font=("Helvetica", 16), width=10, borderwidth=3, bg=btnColor, fg='bLACK', command=exit_application)
